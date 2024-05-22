@@ -8,12 +8,11 @@ pipeline_tag: text-to-image
 
 # AnimateDi
 
-<img src="https://modelfoundry.test.osinfra.cn/coderepo/web/v1/file/haml/testModel/main/media/test.svg" alt="">
+![https://modelfoundry.test.osinfra.cn/coderepo/web/v1/file/haml/testModel/main/media/test.svg](https://modelfoundry.test.osinfra.cn/coderepo/web/v1/file/haml/testModel/main/media/test.svg)
 
-<img src="https://openmind.cn/coderepo/web/v1/file/openmind/vit_base_patch16_224_pt/main/media/example/000000039769.jpg"
-        alt="">
+![https://openmind.cn/coderepo/web/v1/file/openmind/vit_base_patch16_224_pt/main/media/example/000000039769.jpg](https://openmind.cn/coderepo/web/v1/file/openmind/vit_base_patch16_224_pt/main/media/example/000000039769.jpg)
 
-<img src="https://huggingface.co/haml/21/resolve/main/svg.svg" alt="svg.svg">
+![https://huggingface.co/haml/21/resolve/main/svg.svg](https://huggingface.co/haml/21/resolve/main/svg.svg)
 
 # 目录
 
