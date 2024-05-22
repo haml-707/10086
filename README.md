@@ -6,12 +6,14 @@ pipeline_tag: text-to-image
 ---
 
 
-# AnimateDiff
+# AnimateDi
 
-    <img src="https://modelfoundry.test.osinfra.cn/coderepo/web/v1/file/haml/testModel/main/media/test.svg" alt="">
-    <img src="https://openmind.cn/coderepo/web/v1/file/openmind/vit_base_patch16_224_pt/main/media/example/000000039769.jpg"
+<img src="https://modelfoundry.test.osinfra.cn/coderepo/web/v1/file/haml/testModel/main/media/test.svg" alt="">
+
+<img src="https://openmind.cn/coderepo/web/v1/file/openmind/vit_base_patch16_224_pt/main/media/example/000000039769.jpg"
         alt="">
-    <img src="https://huggingface.co/haml/21/resolve/main/svg.svg" alt="svg.svg">
+
+<img src="https://huggingface.co/haml/21/resolve/main/svg.svg" alt="svg.svg">
 
 # 目录
 
