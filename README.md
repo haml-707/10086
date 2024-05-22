@@ -1,169 +1,115 @@
 ---
-language:
-  - en
-  - zh
-license: other
-license_name: baichuan2-community-license
-pipeline_tag: text-generation
+license: apache-2.0
 frameworks:
   - PyTorch
+pipeline_tag: text-to-image
 ---
- 
-<!-- markdownlint-disable first-line-h1 -->
-<!-- markdownlint-disable html -->
-<div align="center">
-<h1>
-  Baichuan 2
-</h1>
-</div>
-
-<div align="center">
-<a href="https://github.com/baichuan-inc/Baichuan2" target="_blank">🦉GitHub</a> | <a href="https://github.com/baichuan-inc/Baichuan-7B/blob/main/media/wechat.jpeg?raw=true" target="_blank">💬WeChat</a>
-</div>
-<div align="center">
-  百川API支持搜索增强和192K长窗口，新增百川搜索增强知识库、限时免费！<br>
-🚀 <a href="https://www.baichuan-ai.com/" target="_blank">百川大模型在线对话平台</a> 已正式向公众开放 🎉
-</div>
-
-# 修改说明（Modification）
-在原始README上修改示例代码部分。
-Modify the example code.
-# 目录/Table of Contents
-
-- [📖 模型介绍/Introduction](#Introduction)
-- [⚙️ 快速开始/Quick Start](#Start)
-- [📊 Benchmark评估/Benchmark Evaluation](#Benchmark)
-- [👥 社区与生态/Community](#Community)
-- [📜 声明与协议/Terms and Conditions](#Terms)
 
 
-# <span id="Introduction">模型介绍/Introduction</span>
-
-Baichuan 2 是[百川智能]推出的新一代开源大语言模型，采用 **2.6 万亿**  Tokens 的高质量语料训练，在权威的中文和英文 benchmark
-上均取得同尺寸最好的效果。本次发布包含有 7B、13B 的 Base 和 Chat 版本，并提供了 Chat 版本的 4bits
-量化，所有版本不仅对学术研究完全开放，开发者也仅需[邮件申请]并获得官方商用许可后，即可以免费商用。
-
-Baichuan 2 is the new generation of large-scale open-source language models launched by [Baichuan Intelligence inc.](https://www.baichuan-ai.com/). 
-It is trained on a high-quality corpus with 2.6 trillion tokens and has achieved the best performance in authoritative Chinese and English benchmarks of the same size. 
-This release includes 7B and 13B versions for both Base and Chat models, along with a 4bits quantized version for the Chat model. 
-All versions are fully open to academic research, and developers can also use them for free in commercial applications after obtaining an official commercial license through [email request](mailto:opensource@baichuan-inc.com). 
-
-# <span id="Start">快速开始/Quick Start</span>
-
-在Baichuan2系列模型中，我们为了加快推理速度使用了Pytorch2.0加入的新功能F.scaled_dot_product_attention，因此模型需要在Pytorch2.0环境下运行。
-
-In the Baichuan 2 series models, we have utilized the new feature `F.scaled_dot_product_attention` introduced in PyTorch 2.0 to accelerate inference speed. Therefore, the model needs to be run in a PyTorch 2.0 environment.
+# AnimateDiff
 
 
-```python
-import torch
-from openmind import AutoModelForCausalLM, AutoTokenizer
-from transformers.generation.utils import GenerationConfig
-tokenizer = AutoTokenizer.from_pretrained("openmind/baichuan2_7b_chat_pt", use_fast=False, trust_remote_code=True)
-model = AutoModelForCausalLM.from_pretrained("openmind/baichuan2_7b_chat_pt", device_map="npu:0", torch_dtype=torch.bfloat16, trust_remote_code=True)
-model.generation_config = GenerationConfig.from_pretrained("openmind/baichuan2_7b_chat_pt")
-messages = []
-messages.append({"role": "user", "content": "解释一下“温故而知新”"})
-response = model.chat(tokenizer, messages)
-print(response)
-"温故而知新"是一句中国古代的成语，出自《论语·为政》篇。这句话的意思是：通过回顾过去，我们可以发现新的知识和理解。换句话说，学习历史和经验可以让我们更好地理解现在和未来。
 
-这句话鼓励我们在学习和生活中不断地回顾和反思过去的经验，从而获得新的启示和成长。通过重温旧的知识和经历，我们可以发现新的观点和理解，从而更好地应对不断变化的世界和挑战。
-```
+# 目录
 
-# <span id="Benchmark">Benchmark 结果/Benchmark Evaluation</span>
+[锚点](./pp.md#准备训练环境)
+[锚点](./#准备训练环境)
 
-我们在[通用]、[法律]、[医疗]、[数学]、[代码]和[多语言翻译]六个领域的中英文权威数据集上对模型进行了广泛测试，更多详细测评结果可查看[GitHub]。
+[英文](README_EN.md)
 
-We have extensively tested the model on authoritative Chinese-English datasets across six domains: [General](https://github.com/baichuan-inc/Baichuan2/blob/main/README_EN.md#general-domain), [Legal](https://github.com/baichuan-inc/Baichuan2/blob/main/README_EN.md#law-and-medicine), [Medical](https://github.com/baichuan-inc/Baichuan2/blob/main/README_EN.md#law-and-medicine), [Mathematics](https://github.com/baichuan-inc/Baichuan2/blob/main/README_EN.md#mathematics-and-code), [Code](https://github.com/baichuan-inc/Baichuan2/blob/main/README_EN.md#mathematics-and-code), and [Multilingual Translation](https://github.com/baichuan-inc/Baichuan2/blob/main/README_EN.md#multilingual-translation). For more detailed evaluation results, please refer to [GitHub](https://github.com/baichuan-inc/Baichuan2/blob/main/README_EN.md).
+[链接](https://www.openeuler.org/zh/oEEP/?name=oEEP-0002%20oEEP%20%E6%A0%BC%E5%BC%8F%E4%B8%8E%E5%86%85%E5%AE%B9%E8%A7%84%E8%8C%83#oeep-%E5%86%85%E5%AE%B9%E8%A6%81%E6%B1%82)
 
-### 7B Model Results
-
-|                         | **C-Eval** | **MMLU** | **CMMLU** | **Gaokao** | **AGIEval** | **BBH** |
-|:-----------------------:|:----------:|:--------:|:---------:|:----------:|:-----------:|:-------:|
-|                         |  5-shot    |  5-shot  |  5-shot   | 5-shot     | 5-shot      | 3-shot  |
-|        **GPT-4**        | 68.40      | 83.93    | 70.33     | 66.15      | 63.27       | 75.12   |
-|    **GPT-3.5 Turbo**    | 51.10      | 68.54    | 54.06     | 47.07      | 46.13       | 61.59   |
-|      **LLaMA-7B**       | 27.10      | 35.10    | 26.75     | 27.81      | 28.17       | 32.38   |
-|      **LLaMA2-7B**      | 28.90      | 45.73    | 31.38     | 25.97      | 26.53       | 39.16   |
-|       **MPT-7B**        | 27.15      | 27.93    | 26.00     | 26.54      | 24.83       | 35.20   |
-|      **Falcon-7B**      | 24.23      | 26.03    | 25.66     | 24.24      | 24.10       | 28.77   |
-|     **ChatGLM2-6B**     | 50.20      | 45.90    | 49.00     | 49.44      | 45.28       | 31.65   |
-|    **Baichuan-7B**    | 42.80      | 42.30    | 44.02     | 36.34      | 34.44       | 32.48   |
-| **Baichuan2-7B-Base** | 54.00      | 54.16    | 57.07     | 47.47      | 42.73       | 41.56   |
-
-### 13B Model Results
-
-|                             | **C-Eval** | **MMLU** | **CMMLU** | **Gaokao** | **AGIEval** | **BBH** |
-|:---------------------------:|:----------:|:--------:|:---------:|:----------:|:-----------:|:-------:|
-|                             |  5-shot    |  5-shot  |  5-shot   | 5-shot     | 5-shot      | 3-shot  |
-|          **GPT-4**          | 68.40      | 83.93    | 70.33     | 66.15      | 63.27       | 75.12   |
-|      **GPT-3.5 Turbo**      | 51.10      | 68.54    | 54.06     | 47.07      | 46.13       | 61.59   |
-|        **LLaMA-13B**        | 28.50      | 46.30    | 31.15     | 28.23      | 28.22       | 37.89   |
-|       **LLaMA2-13B**        | 35.80      | 55.09    | 37.99     | 30.83      | 32.29       | 46.98   |
-|       **Vicuna-13B**        | 32.80      | 52.00    | 36.28     | 30.11      | 31.55       | 43.04   |
-| **Chinese-Alpaca-Plus-13B** | 38.80      | 43.90    | 33.43     | 34.78      | 35.46       | 28.94   |
-|       **XVERSE-13B**        | 53.70      | 55.21    | 58.44     | 44.69      | 42.54       | 38.06   |
-|   **Baichuan-13B-Base**    | 52.40      | 51.60    | 55.30     | 49.69      | 43.20       | 43.01   |
-|  **Baichuan2-13B-Base**   | 58.10      | 59.17    | 61.97     | 54.33      | 48.17       | 48.78   |
-
-# <span id="Community">社区与生态/Community</span>
-
-## Intel 酷睿 Ultra 平台运行百川大模型
-
-使用酷睿™/至强® 可扩展处理器或配合锐炫™ GPU等进行部署[Baichuan2-7B-Chat]，[Baichuan2-13B-Chat]模型，推荐使用 BigDL-LLM([CPU], [GPU])以发挥更好推理性能。
-
-详细支持信息可参考[中文操作手册](https://github.com/intel-analytics/bigdl-llm-tutorial/tree/main/Chinese_Version)，包括用notebook支持，[加载，优化，保存方法](https://github.com/intel-analytics/bigdl-llm-tutorial/blob/main/Chinese_Version/ch_3_AppDev_Basic/3_BasicApp.ipynb)等。
-
-When deploy on Core™/Xeon® Scalable Processors or with Arc™ GPU, BigDL-LLM ([CPU], [GPU]) is recommended to take full advantage of better inference performance.
-
-# <span id="Terms">声明与协议/Terms and Conditions</span>
-
-## 声明
-
-我们在此声明，我们的开发团队并未基于 Baichuan 2 模型开发任何应用，无论是在 iOS、Android、网页或任何其他平台。我们强烈呼吁所有使用者，不要利用 Baichuan 2 模型进行任何危害国家社会安全或违法的活动。另外，我们也要求使用者不要将 Baichuan 2 模型用于未经适当安全审查和备案的互联网服务。我们希望所有的使用者都能遵守这个原则，确保科技的发展能在规范和合法的环境下进行。
-
-我们已经尽我们所能，来确保模型训练过程中使用的数据的合规性。然而，尽管我们已经做出了巨大的努力，但由于模型和数据的复杂性，仍有可能存在一些无法预见的问题。因此，如果由于使用 Baichuan 2 开源模型而导致的任何问题，包括但不限于数据安全问题、公共舆论风险，或模型被误导、滥用、传播或不当利用所带来的任何风险和问题，我们将不承担任何责任。
-
-We hereby declare that our team has not developed any applications based on Baichuan 2 models, not on iOS, Android, the web, or any other platform. We strongly call on all users not to use Baichuan 2 models for any activities that harm national / social security or violate the law. Also, we ask users not to use Baichuan 2 models for Internet services that have not undergone appropriate security reviews and filings. We hope that all users can abide by this principle and ensure that the development of technology proceeds in a regulated and legal environment.
-
-We have done our best to ensure the compliance of the data used in the model training process. However, despite our considerable efforts, there may still be some unforeseeable issues due to the complexity of the model and data. Therefore, if any problems arise due to the use of Baichuan 2 open-source models, including but not limited to data security issues, public opinion risks, or any risks and problems brought about by the model being misled, abused, spread or improperly exploited, we will not assume any responsibility.
-
-## 协议
-
-社区使用 Baichuan 2 模型需要遵循 [Apache 2.0](https://github.com/baichuan-inc/Baichuan2/blob/main/LICENSE) 和[《Baichuan 2 模型社区许可协议》](https://openmind.cn/models/openmind/baichuan2_7b_chat_pt/blob/main/Baichuan2%20%E6%A8%A1%E5%9E%8B%E7%A4%BE%E5%8C%BA%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE.pdf)。Baichuan 2 模型支持商业用途，如果您计划将 Baichuan 2 模型或其衍生品用于商业目的，请您确认您的主体符合以下情况：
-  1. 您或您的关联方的服务或产品的日均用户活跃量（DAU）低于100万。
-  2. 您或您的关联方不是软件服务提供商、云服务提供商。
-  3. 您或您的关联方不存在将授予您的商用许可，未经百川许可二次授权给其他第三方的可能。
-
-在符合以上条件的前提下，您需要通过以下联系邮箱 opensource@baichuan-inc.com ，提交《Baichuan 2 模型社区许可协议》要求的申请材料。审核通过后，百川将特此授予您一个非排他性、全球性、不可转让、不可再许可、可撤销的商用版权许可。
-
-The community usage of Baichuan 2 model requires adherence to [Apache 2.0](https://github.com/baichuan-inc/Baichuan2/blob/main/LICENSE) and [Community License for Baichuan2 Model](https://openmind.cn/models/openmind/baichuan2_7b_chat_pt/blob/main/Baichuan2%20%E6%A8%A1%E5%9E%8B%E7%A4%BE%E5%8C%BA%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE.pdf). The Baichuan 2 model supports commercial use. If you plan to use the Baichuan 2 model or its derivatives for commercial purposes, please ensure that your entity meets the following conditions:
-
-  1. The Daily Active Users (DAU) of your or your affiliate's service or product is less than 1 million.
-  2. Neither you nor your affiliates are software service providers or cloud service providers.
-  3. There is no possibility for you or your affiliates to grant the commercial license given to you, to reauthorize it to other third parties without Baichuan's permission.
-
-Upon meeting the above conditions, you need to submit the application materials required by the Baichuan 2 Model Community License Agreement via the following contact email: opensource@baichuan-inc.com. Once approved, Baichuan will hereby grant you a non-exclusive, global, non-transferable, non-sublicensable, revocable commercial copyright license.
+- [概述](#概述)
+- [准备训练环境](#准备训练环境)
+- [模型训练](#模型训练)
+- [模型推理](#模型推理)
+- [版本说明](#版本说明)
 
 
-[GitHub]:https://github.com/baichuan-inc/Baichuan2
-[Baichuan2]:https://github.com/baichuan-inc/Baichuan2
+
+## 概述
+
+### 模型介绍
+
+AnimateDiff提出了一个有效的框架，可将现有的大多数个性化文本到图像模型一次性制成动画，从而节省了针对特定模型进行微调的工作量。
+
+本仓已经支持以下模型任务类型
+
+|     模型      | 任务列表 | 是否支持 |
+|:-----------:|:----:|:-----:|
+| AnimateDiff |  训练  | ✔ |
+| AnimateDiff |  推理  | ✔ |
+
+- 参考实现：
+
+  ```
+  url=https://github.com/guoyww/AnimateDiff.git
+  commit_id=cf80ddeb47b69cf0b16f225800de081d486d7f21
+  ```
+
+- 适配昇腾AI处理器的实现：
+  ```shell
+  url=https://openmind.cn/models/Ascend-PyTorch/AnimateDiff
+  ```
+
+## 准备训练环境
+
+### 创建python环境
+
+- git clone 远程仓
+  ```shell
+    git clone https://openmind.cn/Ascend-PyTorch/AnimateDiff.git
+    cd AnimateDiff
+  ```
+
+- 创建python环境并且安装python三方包
+  ```shell
+    conda env create -f environment.yaml
+    conda activate animatediff
+    pip3 install torch==2.1.0+cpu  --index-url https://download.pytorch.org/whl/cpu  # For X86
+    pip3 install torch==2.1.0  # For Aarch64
+    pip3 install accelerate==0.28.0 diffusers==0.11.1 decorator==5.1.1 scipy==1.12.0 attrs==23.2.0  torchvision==0.16.0 transformers==4.25.1
+  ```
+- 环境准备指导
+
+  请参考《[Pytorch框架训练环境准备](https://www.hiascend.com/document/detail/zh/ModelZoo/pytorchframework/ptes)》。
+
+    **表 1**  昇腾软件版本支持表
+
+  |     软件类型     |   支持版本   |
+  |:-----------:|:--------:|
+  | FrameworkPTAdapter  |   在研版本   |
+  | CANN | 在研版本 |
+   | 昇腾NPU固件 | 在研版本 |
+   | 昇腾NPU驱动 | 在研版本 |
 
 
-[通用]:https://github.com/baichuan-inc/Baichuan2#%E9%80%9A%E7%94%A8%E9%A2%86%E5%9F%9F
-[法律]:https://github.com/baichuan-inc/Baichuan2#%E6%B3%95%E5%BE%8B%E5%8C%BB%E7%96%97
-[医疗]:https://github.com/baichuan-inc/Baichuan2#%E6%B3%95%E5%BE%8B%E5%8C%BB%E7%96%97
-[数学]:https://github.com/baichuan-inc/Baichuan2#%E6%95%B0%E5%AD%A6%E4%BB%A3%E7%A0%81
-[代码]:https://github.com/baichuan-inc/Baichuan2#%E6%95%B0%E5%AD%A6%E4%BB%A3%E7%A0%81
-[多语言翻译]:https://github.com/baichuan-inc/Baichuan2#%E5%A4%9A%E8%AF%AD%E8%A8%80%E7%BF%BB%E8%AF%91
+### 准备数据集
 
-[《Baichuan 2 模型社区许可协议》]:https://openmind.cn/models/openmind/baichuan2_7b_chat_pt/blob/main/Baichuan2%20%E6%A8%A1%E5%9E%8B%E7%A4%BE%E5%8C%BA%E8%AE%B8%E5%8F%AF%E5%8D%8F%E8%AE%AE.pdf
+- 需要自行下载WebVid10M数据集，分别将csv文件和2M_val文件夹传入训练脚本对应的csv_path和video_folder参数上面：
+   ```
+    数据集结构
+    ├── 2M_val
+    │   ├── 10003109.mp4
+    │   ├── 10023815.mp4
+    │   ├── 10024310.mp4
+    │   ├── 10042700.mp4
+    │   ├── 10052036.mp4
+    │   ├── 10052783.mp4
+    │   ├── 1005608956.mp4
+    └── results_2M_val.csv
+   ```
+  数据来源可以参考 https://github.com/guoyww/AnimateDiff/blob/main/__assets__/docs/animatediff.md 中的数据准备章节。
+### 准备预训练权重
 
-[邮件申请]: mailto:opensource@baichuan-inc.com
-[Email]: mailto:opensource@baichuan-inc.com
-[opensource@baichuan-inc.com]: mailto:opensource@baichuan-inc.com
-[百川智能]: https://www.baichuan-ai.com
-
-[CPU]: https://github.com/intel-analytics/BigDL/tree/main/python/llm/example/CPU/HF-Transformers-AutoModels/Model/baichuan2
-[GPU]: https://github.com/intel-analytics/BigDL/tree/main/python/llm/example/GPU/HF-Transformers-AutoModels/Model/baichuan2
+- 需要准备2个模型权重:
+  ```shell
+  runwayml/stable-diffusion-v1-5
+  openai/clip-vit-large-patch14
+  ```
+- 将stable-diffusion-v1-5 路径传入到configs/training/v1/image_finetune.yaml 的pretrained_model_path。
+- openai/clip-vit-large-patch14需要放置到模型的根目录下面。
+### 准备推理权重
+- 如果想使用animatediff的推理功能需要下载下面提及到的模型，按照模型的名字对应放到models目录下面DreamBooth_LoRA、MotionLoRA、Motion_Module、SparseCtrl、StableDiffusion文件夹中。
+ 模型获取可以参考 https://github.com/guoyww/AnimateDiff/blob/main/__assets__/docs/animatediff.md 文档。
+  <details>
